@@ -106,7 +106,54 @@ cars[1].speed = 10;
 cars[2].speed = 20;
 
 console.log(cars[1].speed);
+
 //-----------------------------------------------
+
+const carSelector: HTMLSelectElement = document.getElementById('cars-slt') as HTMLSelectElement;
+carSelector.addEventListener('change', getSelectedCar);
+
+let carSelectedRego: string = cars[0].rego;
+let selectedCar: Car;
+
+for(let i = 0; i < cars.length; i++) {
+  let newOption: HTMLOptionElement = document.createElement('option');
+  newOption.innerHTML = cars[i].rego;
+  newOption.value = cars[i].rego;
+  
+  carSelector.add(newOption);
+}
+
+function getSelectedCar() {
+  carSelectedRego = carSelector.selectedOptions[0].value;
+ 
+  displayCarInfo(searchCarByRego(carSelectedRego));
+
+}
+
+function searchCarByRego(rego:string) {
+  for(let i=0; i < cars.length; i++) {
+    if(cars[i].rego == rego) {
+      return cars[i];
+    }
+  }
+}
+
+//------------------------------------------------------
+accelerateButton.removeEventListener('click', accelerateCar);
+
+accelerateButton.addEventListener('click', accelerate);
+
+function accelerate() {
+  accelerateSpecificCar(carSelector.selectedOptions[0].value);
+}
+
+function accelerateSpecificCar(rego:string) {
+  let foundCar: Car = searchCarByRego(rego);
+
+  foundCar.accelerate();
+  displayCarInfo(foundCar);
+  
+}
 
 // var is function scoped and let is block scoped
 
