@@ -139,7 +139,24 @@ function searchCarByRego(rego:string) {
 }
 
 //------------- Populate second car select using indexes instead of rego -----------
+const carSelector2: HTMLSelectElement = document.getElementById('cars2-slt') as HTMLSelectElement;
 
+for(let i = 0; i < cars.length; i++) {
+  let newOption: HTMLOptionElement = document.createElement('option');
+  newOption.innerHTML = cars[i].rego;
+  newOption.value = i.toString();
+
+  carSelector2.add(newOption);
+}
+
+carSelector2.addEventListener('change', getSelectedCar2);
+
+function getSelectedCar2() {
+  let selectedIndex: number = parseInt(carSelector2.selectedOptions[0].value);
+  selectedCar = cars[selectedIndex];
+
+  displayCarInfo(selectedCar);
+}
 
 //------------------------------------------------------
 accelerateButton.removeEventListener('click', accelerateCar);
