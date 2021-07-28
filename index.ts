@@ -138,6 +138,9 @@ function searchCarByRego(rego:string) {
   }
 }
 
+//------------- Populate second car select using indexes instead of rego -----------
+
+
 //------------------------------------------------------
 accelerateButton.removeEventListener('click', accelerateCar);
 
